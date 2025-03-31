@@ -1,10 +1,11 @@
-SIDEBAR_TSX = """import { Link } from "react-router-dom";
-import style from "./style/Sidebar.module.css";
+SIDEBAR_TSX = """
+import { Link } from "react-router";
+import style from "./Style/Sidebar.module.css";
 import { House, Menu, Play } from 'lucide-react';
 
 type SidebarProps = {
-    toggleSidebar: () => void;
-    isCollapsed: boolean;
+  toggleSidebar: () => void;
+  isCollapsed: boolean;
 };
 
 const Sidebar = ({ isCollapsed, toggleSidebar }: SidebarProps) => {
@@ -17,19 +18,21 @@ const Sidebar = ({ isCollapsed, toggleSidebar }: SidebarProps) => {
           onClick={toggleSidebar}
           className="text-white hover:bg-gray-700 rounded pl-0.5 transition-colors"
         >
-          {isCollapsed ? <Menu /> : '←'}
+          {isCollapsed ? (
+            <Menu />
+          ) : '←'}
         </button>
       </div>
       <nav className="pt-4">
         <ul>
-          <li className="mb-2">
-            <Link to='/home' className={`flex text-white items-center gap-3 hover:text-gray-400 transition-colors ${isCollapsed ? 'justify-center' : 'px-2'}`}>
+          <li className="">
+            <Link to={'/home'} className={`flex text-white items-center gap-3 hover:text-gray-400 transition-colors ${isCollapsed ? 'justify-center' : ''}`}>
               <House className="w-5 h-5 min-w-[20px]" />
               {!isCollapsed && <span className="whitespace-nowrap">Inicio</span>}
-            </Link>
+            </Link>,
           </li>
-          <li className="mb-2">
-            <Link to='/chess' className={`flex text-white items-center gap-3 hover:text-gray-400 transition-colors ${isCollapsed ? 'justify-center' : 'px-2'}`}>
+          <li className="">
+            <Link to={'chess'} className={`flex text-white items-center gap-3 hover:text-gray-400 transition-colors ${isCollapsed ? 'justify-center' : ''}`}>
               <Play className="w-5 h-5 min-w-[20px]" />
               {!isCollapsed && <span className="whitespace-nowrap">Jugar</span>}
             </Link>
@@ -40,7 +43,7 @@ const Sidebar = ({ isCollapsed, toggleSidebar }: SidebarProps) => {
   );
 };
 
-export default Sidebar;
+export default Sidebar
 """
 
 

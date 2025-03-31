@@ -1,34 +1,39 @@
-HOMEPAGE_LAYOUT_TSX = """import { Outlet } from "react-router-dom";
+HOMEPAGE_PAGE = """
+import { Outlet } from "react-router";
 import Sidebar from "../../components/Sidebar/Sidebar";
-import Navbar from "../../components/Navbar/Navbar";
 import { useRef, useState } from "react";
-import { useClickOutside } from "../../hooks/useClickOutside";
+import Navbar from "../../components/Navbar/Navbar";
+import useClickOutside from "../../hooks/useClickOutside";
 
 const HomePageLayout = () => {
-  const [isSidebarCollapsed, setIsSidebarCollapsed] = useState(false);
+  const [isSidebarVisible, setIsSidebarVisible] = useState(false);
   const sidebarRef = useRef<HTMLDivElement>(null);
 
-  useClickOutside(sidebarRef, () => {
-    if (!isSidebarCollapsed) {
-      setIsSidebarCollapsed(true);
-    }
+  const toggleSidebar = () => {
+    setIsSidebarVisible((prev) => !prev);
+  };
+
+  useClickOutside(sidebarRef as React.RefObject<HTMLElement>, () => {
+    setIsSidebarVisible(false);
   });
 
   return (
-    <div className="flex h-screen bg-gray-100">
-      <div ref={sidebarRef}>
+    <header>
+      <div
+        ref={sidebarRef}
+      >
         <Sidebar
-          toggleSidebar={() => setIsSidebarCollapsed(!isSidebarCollapsed)}
-          isCollapsed={isSidebarCollapsed}
+          toggleSidebar={toggleSidebar}
+          isCollapsed={!isSidebarVisible}
         />
       </div>
-      <div className="flex-1 flex flex-col overflow-hidden">
+      <main className="pl-10 w-full">
         <Navbar />
-        <main className="flex-1 overflow-y-auto p-6">
+        <section className='py-4 px-4 w-full '>
           <Outlet />
-        </main>
-      </div>
-    </div>
+        </section>
+      </main>
+    </header>
   );
 };
 

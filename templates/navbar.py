@@ -1,6 +1,6 @@
 NAVBAR_TSX = """
 import { Bell, LogOut } from "lucide-react";
-import style from "./style/Navbar.module.css";
+import style from "./Style/Navbar.module.css";
 import { useRef, useState } from "react";
 import useClickOutside from "../../hooks/useClickOutside";
 
@@ -18,21 +18,23 @@ const Navbar = () => {
     setShowNotifications((prev) => !prev);
   };
 
-  useClickOutside(notificationsRef, () => {
+  useClickOutside(notificationsRef as React.RefObject<HTMLElement>, () => {
     setShowNotifications(false);
   });
 
   return (
-    <div className={`${style.navbar} flex items-center justify-between py-2 px-6`}>
+    <div
+      className={`${style.navbar} flex items-center justify-between py-1 px-4`}
+    >
       <div className="text-white font-bold text-xl">MiApp</div>
       <ul className="flex items-center gap-6">
-        <li className="relative">
+        <li className="relative ">
           <div ref={notificationsRef}>
             <button
               onClick={toggleNotifications}
-              className={`p-2 rounded-full relative ${style.notificationBtn}`}
+              className={`p-1 rounded-full relative ${style.notificationBtn}`}
             >
-              <Bell className="w-5 h-5" />
+              <Bell className="w-4 h-4" />
               {notifications.length > 0 && (
                 <span className={style.notificationBadge}>
                   {notifications.length}
@@ -61,7 +63,7 @@ const Navbar = () => {
         </li>
         <li>
           <button className={style.logoutButton}>
-            <LogOut className="w-4 h-4" />
+            <LogOut className="w-3 h-3" />
             <span>Cerrar sesión</span>
           </button>
         </li>

@@ -1,4 +1,4 @@
-NAVBAR_CSS = """"
+NAVBAR_CSS = """
 .navbar {
   background: linear-gradient(90deg, #5c9ea0, #326ea7, #5f628b);
   box-shadow: 0 4px 15px rgba(0, 0, 0, 0.1);

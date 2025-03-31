@@ -1,6 +1,5 @@
 #!/usr/bin/env python3
 
-import os
 import subprocess
 import sys
 from pathlib import Path
@@ -43,7 +42,7 @@ def create_vite_project(project_name):
 def install_dependencies(project_name):
     deps = [
         "swr", "axios", "zustand",
-        "tailwindcss", "react-router", "lucide-react"
+        "tailwindcss","@tailwindcss/vite", "react-router", "lucide-react"
     ]
     print("🔧 Instalando dependencias adicionales...")
     subprocess.run(["npm", "install", *deps], cwd=project_name, check=True)
@@ -55,17 +54,26 @@ def create_project_structure(project_name):
 
     (base / "components/Sidebar/Style").mkdir(parents=True)
     (base / "components/Sidebar/Sidebar.tsx").write_text(TEMPLATES["sidebar"])
-    (base / "components/Sidebar/style/Sidebar.module.css").write_text(TEMPLATESCSS["sidebarStyle"])
+    (base / "components/Sidebar/Style/Sidebar.module.css").write_text(TEMPLATESCSS["sidebarStyle"])
 
     (base / "components/Navbar/Style").mkdir(parents=True)
     (base / "components/Navbar/Navbar.tsx").write_text(TEMPLATES["navbar"])
     (base / "components/Navbar/Style/Navbar.module.css").write_text(TEMPLATESCSS["navbarStyle"])
 
     (base / "hooks").mkdir()
-    (base / "hooks/useClickOutSide.ts").write_text(TEMPLATES["clickOutSide"])
+    (base / "hooks/useClickOutside.ts").write_text(TEMPLATES["clickOutside"])
 
     (base / "page/home").mkdir(parents=True)
-    (base / "page/home/HomePageLayout.tsx").write_text(TEMPLATES["HomePage"])
+    (base / "page/home/HomePageLayout.tsx").write_text(TEMPLATES["homePage"])
+    (base / "page/HomeLayout.tsx").write_text(TEMPLATES["homeLayout"])
+
+    (base / "router").mkdir()
+    (base / "router/Router.tsx").write_text(TEMPLATES["router"])
+
+    (base / "App.tsx").write_text(TEMPLATES["app"] )
+
+    (base / "index.css").write_text(TEMPLATESCSS["resetCss"])
+    
 
 def main():
     args = parse_arg()
@@ -75,7 +83,9 @@ def main():
 
     try:
         chech_requirements()
+        
         create_vite_project(project_name)
+        install_dependencies(project_name)
 
         create_project_structure(project_name)
 

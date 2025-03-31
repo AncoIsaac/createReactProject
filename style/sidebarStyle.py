@@ -1,4 +1,4 @@
-SIDEBAR_CSS = """"
+SIDEBAR_CSS = """
 .container {
   position: fixed;
   left: 0;

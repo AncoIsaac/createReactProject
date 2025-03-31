@@ -1,12 +1,10 @@
 USE_CLICK_OUTSIDE_TS = """
 import { RefObject, useEffect } from 'react';
 
-type ClickOutsideHandler = (event: MouseEvent | TouchEvent) => void;
-
-export const useClickOutside = <T extends HTMLElement>(
+const useClickOutside = <T extends HTMLElement>(
   ref: RefObject<T>,
-  handler: ClickOutsideHandler
-): void => {
+  handler: (event: MouseEvent | TouchEvent) => void
+) => {
   useEffect(() => {
     const listener = (event: MouseEvent | TouchEvent) => {
       if (!ref.current || ref.current.contains(event.target as Node)) {
@@ -24,5 +22,8 @@ export const useClickOutside = <T extends HTMLElement>(
     };
   }, [ref, handler]);
 };
+
+export default useClickOutside;
+
 """
 
